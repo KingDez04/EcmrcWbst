@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        headingsFont: ["Itim", "cursive"],
+        textFont: ["Istok Web", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
