@@ -33,13 +33,13 @@ const Contact = () => {
       </div>
       <div className="grid gap-5 grid-flow-col font-textFont text-xs">
         <div className="ml-2 md:ml-16 flex flex-col gap-5 p-5 shrink shadow-md rounded-md">
-          <p className="flex gap-5 font-bold">
+          <p className="flex gap-5 font-bold font-headingsFont">
             <FaPhone /> Call Us
           </p>
           <p>We are available 24/7, 7 days a week.</p>
           <p>Phone: 08149167007</p>
           <hr className="border-black" />
-          <p className="flex gap-5 font-bold">
+          <p className="flex gap-5 font-bold font-headingsFont">
             <FaEnvelope /> Write To Us
           </p>
           <p>Fill out our form and we will contact you within 24 hours.</p>

@@ -7,11 +7,11 @@ const NavBar = () => {
       className="py-6 hidden lg:flex justify-between font-textFont md:text-sm border-gray-400 border-b-[1px]"
       aria-label="Lead Navigation"
     >
-      <h1 className="font-bold ml-16 text-2xl">E-commerce</h1>
+      <h1 className="font-bold ml-16 text-2xl font-headingsFont">E-commerce</h1>
       <ul className="grid grid-cols-5 gap-14 whitespace-nowrap max-w-[698px] mr-16">
         <li>
           <NavLink
-            to="/home"
+            to="/"
             className={({ isActive }) => (isActive ? "underline" : "")}
           >
             Home
