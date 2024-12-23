@@ -2,24 +2,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaGripVertical } from "react-icons/fa";
 // import { useAuth } from "./Auths/Auth";
 
-const Products = ({ products, title = null, banner = null }) => {
+const Products = ({ products, title = null, banner = null, ovrviewData = null }) => {
   const navigate = useNavigate();
   //   const { addToWishlist } = useAuth();
-  //   const loggedInStyle = {
-  //     display: "flex",
-  //     justifyContent: "space-between",
-  //   };
   return (
     <>
-      <p className="font-headingsFont text-2xl ml-16 font-bold mt-10"><FaGripVertical />{title}</p>
-      <div className="flex justify-start object-scale-down ">
+      <div className="flex justify-start object-scale-down mt-10">
         <img
           src={banner}
-          alt=""
+          alt="products banner"
           className="max-h-32 min-h-32 md:max-h-60 md:min-h-60 ml-16 my-5"
         />
       </div>
-      <div className=" grid grid-cols-4 gap-10 mx-16">
+      <div className="ml-16 mb-5">
+        <span className="text-[#DB4444] flex items-center gap-1">
+          <FaGripVertical /> {ovrviewData}
+        </span>
+        <p className="font-headingsFont font-bold text-2xl">{title}</p>
+      </div>
+      <div className="grid grid-cols-4 gap-10 mx-16">
         {products.map((product, i) => (
           <div className="relative" key={product.id}>
             <Link to={`/products/${product.id}`}>
@@ -34,7 +35,9 @@ const Products = ({ products, title = null, banner = null }) => {
             <button className="w-full text-xs py-1 bg-black text-white">
               Add To Cart
             </button>
-            <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">{product.title}</p>
+            <p className="font-bold overflow-hidden max-h-6 overflow-ellipsis">
+              {product.title}
+            </p>
             <div>
               <p className="text-[#DB4444]">${product.price}</p>
               <button

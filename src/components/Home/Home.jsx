@@ -1,5 +1,7 @@
 import Products from "./Products";
 import useFetch from "./useFetch";
+import NewArrival from "./NewArrival";
+import { FaTruck, FaHeadphones, FaLock } from "react-icons/fa";
 import image1 from "../../assets/images/banner1.png";
 import image2 from "../../assets/images/banner2.png";
 
@@ -26,6 +28,7 @@ const Home = () => {
           <Products
             products={products}
             banner={image1}
+            ovrviewData="This Month"
             title="Best Selling Products"
           />
         )}
@@ -33,9 +36,40 @@ const Home = () => {
           <Products
             products={products}
             banner={image2}
+            ovrviewData="Our Products"
             title="Explore Our Products"
           />
         )}
+        {products && (
+          <NewArrival
+            products={products}
+            ovrviewData="Featured"
+            title="New Arrival"
+          />
+        )}
+      </div>
+      <div className="flex justify-center gap-10 mt-5">
+        <div className="text-center">
+          <div className="flex justify-center">
+            <FaTruck />
+          </div>
+          <p className="font-bold">FREE AND FAST DELIVERY</p>
+          <p className="text-xs">Free delivery for all orders over #1000</p>
+        </div>
+        <div className="text-center">
+          <div className="flex justify-center">
+            <FaHeadphones />
+          </div>
+          <p className="font-bold">24/7 CUSTOMER SERVICE</p>
+          <p className="text-xs">Friendly 24/7 customer support</p>
+        </div>
+        <div className="text-center">
+          <div className="flex justify-center">
+            <FaLock />
+          </div>
+          <p className="font-bold">MONEY BACK GUARANTEE</p>
+          <p className="text-xs">We return money within 30 days</p>
+        </div>
       </div>
     </>
   );
