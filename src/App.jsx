@@ -12,6 +12,8 @@ import Wishlist from "./components/Wishlist/Wishlist";
 import Home from "./components/Home/Home";
 import ProductDetails from "./components/Home/ProductDetails";
 import Cart from "./components/Cart/Cart";
+import Checkout from "./components/Checkout/Checkout";
+import Account from "./components/Account/Account";
 
 const App = () => {
   return (
@@ -27,7 +29,9 @@ const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/" element={<Home />} />
         <Route path="/products/:product" element={<ProductDetails />} />
-        <Route path="Cart" element={<Cart />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="account" element={<Account />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
