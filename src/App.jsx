@@ -9,6 +9,8 @@ import Signup from "./components/Authentication/Signup";
 import Contact from "./components/Contact/Contact";
 import About from "./components/About/About";
 import Wishlist from "./components/Wishlist/Wishlist";
+import Home from "./components/Home/Home";
+import ProductDetails from "./components/Home/ProductDetails";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/products/:product" element={<ProductDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

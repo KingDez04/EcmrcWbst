@@ -54,7 +54,7 @@ const Wishlist = () => {
               <button className="w-full text-xs py-1 bg-black text-white">
                 Add To Cart
               </button>
-              <p className="font-bold">{product.title}</p>
+              <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">{product.title}</p>
               <div>
                 <p className="text-[#DB4444]">${product.price}</p>
                 <button
