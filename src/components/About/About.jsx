@@ -15,7 +15,7 @@ const About = () => {
       <div className="my-[50px] ml-16">
         <span className="text-[#0000006c]">Home / </span>About
       </div>
-      <div className="ml-16 md:ml-0 flex flex-col gap-16">
+      <div className="ml-16 md:ml-0 flex flex-col mr-16 md:mr-0 gap-16">
         <div className="grid md:grid-cols-2 gap-5 font-textFont">
           <div className="md:ml-16 pt-24 text-sm leading-5">
             <h1 className="font-headingsFont text-3xl mb-5">Our Story</h1>
