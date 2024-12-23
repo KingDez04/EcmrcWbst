@@ -72,7 +72,7 @@ const MobileNavBar = () => {
             </Link>
           </li>
           <li className="py-5 px-4 hover:bg-[#5b5b5b] rounded-sm">
-            <Link to="/profile" onClick={handleCloseNav}>
+            <Link to="/account" onClick={handleCloseNav}>
               Profile
             </Link>
           </li>

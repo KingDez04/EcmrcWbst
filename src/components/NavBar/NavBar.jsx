@@ -1,7 +1,32 @@
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { FaShoppingCart, FaUser, FaHeart } from "react-icons/fa";
+import { FaArrowRightToBracket } from "react-icons/fa6";
+import { FiShoppingCart, FiHeart, FiUser, FiShoppingBag } from "react-icons/fi";
 
 const NavBar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLinkClick = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
     <nav
       className="py-6 hidden lg:flex justify-between font-textFont md:text-sm border-gray-400 border-b-[1px]"
@@ -41,34 +66,77 @@ const NavBar = () => {
             Sign Up
           </NavLink>
         </li>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-5 relative">
           <li>
             <NavLink
               to="/wishlist"
-              className={({ isActive }) => (isActive ? "underline" : "")}
+              className={({ isActive }) => (isActive ? "text-[#DB4444]" : "")}
             >
-              <FaHeart />
+              <FiHeart />
             </NavLink>
           </li>
           <li>
             <NavLink
               to="/cart"
-              className={({ isActive }) => (isActive ? "underline" : "")}
+              className={({ isActive }) => (isActive ? "text-[#DB4444]" : "")}
             >
-              <FaShoppingCart />
+              <FiShoppingCart />
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/profile"
-              className={({ isActive }) => (isActive ? "underline" : "")}
+            <button
+              onClick={toggleDropdown}
+              className="relative"
+              aria-expanded={isDropdownOpen}
+              aria-haspopup="true"
             >
-              <FaUser />
-            </NavLink>
+              <FiUser />
+            </button>
+            {isDropdownOpen && (
+              <ul
+                ref={dropdownRef}
+                className="absolute right-0 mt-2 w-40 bg-gradient-to-br from-[#b0b0b0] to-[#505050] text-white shadow-lg rounded-md text-xs"
+              >
+                <li>
+                  <NavLink
+                    to="/account"
+                    className="block px-4 py-2 hover:bg-[#909090]"
+                    onClick={handleLinkClick}
+                  >
+                    <span className="flex items-center gap-1">
+                      <FiUser /> Manage My Account
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/checkout"
+                    className="block px-4 py-2 hover:bg-[#909090]"
+                    onClick={handleLinkClick}
+                  >
+                    <span className="flex items-center gap-1">
+                      <FiShoppingBag /> My Billing Details
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/logout"
+                    className="block px-4 py-2 hover:bg-[#909090]"
+                    onClick={handleLinkClick}
+                  >
+                    <span className="flex items-center gap-1">
+                      <FaArrowRightToBracket /> Logout
+                    </span>
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </li>
         </div>
       </ul>
     </nav>
   );
 };
+
 export default NavBar;
