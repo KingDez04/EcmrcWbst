@@ -1,7 +1,7 @@
 import Products from "./Products";
 import useFetch from "./useFetch";
-import image1 from "../../assets/images/aboutImage.png";
-import image2 from "../../assets/images/authImage.png";
+import image1 from "../../assets/images/banner1.png";
+import image2 from "../../assets/images/banner2.png";
 
 const Home = () => {
   const {
