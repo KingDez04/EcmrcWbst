@@ -11,6 +11,7 @@ import About from "./components/About/About";
 import Wishlist from "./components/Wishlist/Wishlist";
 import Home from "./components/Home/Home";
 import ProductDetails from "./components/Home/ProductDetails";
+import Cart from "./components/Cart/Cart";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/" element={<Home />} />
         <Route path="/products/:product" element={<ProductDetails />} />
+        <Route path="Cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
