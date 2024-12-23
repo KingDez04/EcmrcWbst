@@ -98,8 +98,14 @@ const Cart = () => {
                 className="shadow-md text-center grid grid-cols-4 p-3 relative"
               >
                 <div className="flex gap-3">
-                  <img src={item.image} alt={item.title} className="max-h-5" />
-                  <p>{item.title}</p>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="max-h-5 max-w-5"
+                  />
+                  <p className="overflow-hidden overflow-ellipsis">
+                    {item.title}
+                  </p>
                 </div>
                 <p>{item.price}</p>
                 <p>{item.quantity || 1}</p>
