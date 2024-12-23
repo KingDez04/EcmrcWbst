@@ -38,11 +38,11 @@ const ProductDetails = () => {
       })
       .then((data) => {
         alert(data.message);
-        addToCheckout(
-          <>
-            {products.title} : ${products.price}
-          </>
-        );
+        // addToCheckout(
+        //   <>
+        //     {products.title} : ${products.price}
+        //   </>
+        // );
         navigate("/cart");
       })
       .catch((error) => {
@@ -52,9 +52,12 @@ const ProductDetails = () => {
 
   return (
     <>
-      <div className="my-[50px] ml-16">
-        <span className="text-[#0000006c]">Home / </span>Product
-      </div>
+      {products && (
+        <div className="my-[50px] ml-16 overflow-hidden overflow-ellipsis">
+          <span className="text-[#0000006c]">{products.category} / </span>
+          {products.title}
+        </div>
+      )}
       <div>
         {isPending && (
           <div className="font-headingsFont p-3 mt-20 text-5xl text-center">
@@ -67,7 +70,7 @@ const ProductDetails = () => {
           </div>
         )}
         {products && (
-          <div className="grid grid-cols-2 gap-10 mx-16">
+          <div className="grid sm:grid-cols-2 gap-10 mx-16">
             <div className="object-scale-down flex items-center justify-center md:bg-[#F5F5F5]">
               <img
                 src={products.image}
@@ -88,9 +91,10 @@ const ProductDetails = () => {
                   Buy Now
                 </button>
                 <button
+                  className="hover:text-[#DB4444]"
                   onClick={() => {
                     // addToWishlist(products);
-                    navigate("/favourite");
+                    navigate("/wishlist");
                   }}
                 >
                   <FiHeart />
