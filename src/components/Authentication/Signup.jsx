@@ -26,7 +26,7 @@ const Signup = () => {
       });
   };
   return (
-    <div className="grid grid-cols-2 font-textFont text-xs">
+    <div className="grid sm:grid-cols-2 font-textFont text-xs mx-16 sm:mx-0">
       <img src={image} alt="sign up image" className="md:mt-10" />
       <div className="mx-auto">
         <h1 className="md:mt-28 font-headingsFont text-xl">

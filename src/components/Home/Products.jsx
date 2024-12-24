@@ -26,7 +26,7 @@ const Products = ({
         </span>
         <p className="font-headingsFont font-bold text-2xl">{title}</p>
       </div>
-      <div className="grid grid-cols-4 gap-10 mx-16">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 mx-16">
         {products.map((product, i) => (
           <div className="relative" key={product.id}>
             <Link to={`/products/${product.id}`}>

@@ -40,7 +40,7 @@ const Wishlist = () => {
   return (
     <>
       <div className="my-[50px] ml-16">Wishlist ({wishlist.length})</div>
-      <div className="grid grid-cols-4 gap-5 mx-16">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 mx-16">
         {wishlist &&
           wishlist.map((product, i) => (
             <div className="relative" key={product.id}>
