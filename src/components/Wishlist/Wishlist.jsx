@@ -1,7 +1,7 @@
 // import { useAuth } from "../Auths/Auth";
 import { FiTrash } from "react-icons/fi";
 import image1 from "../../assets/images/aboutImage.png";
-import image2 from "../../assets/images/authImage.png"
+import image2 from "../../assets/images/authImage.png";
 const wishlist = [
   {
     id: 1,
@@ -51,14 +51,16 @@ const Wishlist = () => {
                   alt={`Image ${i + 1}`}
                 />
               </div>
-              <button className="w-full text-xs py-1 bg-black text-white">
+              <button className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]">
                 Add To Cart
               </button>
-              <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">{product.title}</p>
+              <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">
+                {product.title}
+              </p>
               <div>
                 <p className="text-[#DB4444]">${product.price}</p>
                 <button
-                  className="absolute top-2 right-2"
+                  className="absolute top-2 right-2 hover:text-[#DB4444]"
                   //   onClick={() => {
                   //     removeFromWishlist(product);
                   //   }}

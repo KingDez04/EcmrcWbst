@@ -38,7 +38,7 @@ const Products = ({
                 />
               </div>
             </Link>
-            <button className="w-full text-xs py-1 bg-black text-white">
+            <button className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]">
               Add To Cart
             </button>
             <p className="font-bold overflow-hidden max-h-6 overflow-ellipsis">
@@ -47,7 +47,7 @@ const Products = ({
             <div>
               <p className="text-[#DB4444]">${product.price}</p>
               <button
-                className="absolute top-2 right-2"
+                className="absolute top-2 right-2 hover:text-[#DB4444]"
                 onClick={() => {
                   //   addToWishlist(product);
                   navigate("/wishlist");
