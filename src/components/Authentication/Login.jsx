@@ -1,11 +1,29 @@
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useAuth } from "../Auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../../assets/images/authImage.png";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
+
+  const isAuthenticated = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
+
   const onSubmit = (data) => {
     fetch("https://fakestoreapi.com/auth/login", {
       method: "POST",
@@ -14,36 +32,42 @@ const Login = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw Error("Data doesn't exist");
+          throw new Error("Invalid credentials");
         }
         return response.json();
       })
       .then((data) => {
         console.log("Success:", data);
         localStorage.setItem("token", data.token);
+        setIsLoggedIn(true);
         navigate("/account", { replace: true });
       })
       .catch((error) => {
-        alert(error);
+        setErrorMessage(error.message);
       });
   };
   return (
     <div className="grid grid-cols-2 font-textFont text-xs">
-      <img src={image} alt="sign up image" className="md:mt-10" />
+      <img src={image} alt="sign up visual" className="md:mt-10" />
       <div className="mx-auto">
         <h1 className="md:mt-28 font-headingsFont text-xl">
           Log in to E-commerce
         </h1>
         <p>Enter your details below</p>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          {errorMessage && <p className="text-red-600">{errorMessage}</p>}
           <input
             type="text"
             placeholder="Username or Email"
-            name="username"
+            aria-label="Enter your username or email"
             {...register("username", {
               required: {
                 value: true,
                 message: "username or email is required",
+              },
+              minLength: {
+                value: 3,
+                message: "Minimum length is 3 characters",
               },
             })}
             className="outline-none border-black border-b-[1px] block py-3 w-full"
@@ -52,6 +76,7 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
+            aria-label="Enter your password"
             {...register("password", {
               required: {
                 value: true,
