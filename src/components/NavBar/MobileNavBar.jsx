@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useAuth } from "../Auth/AuthContext";
 import { Link } from "react-router-dom";
 
 const MobileNavBar = () => {
+  const { logout, isLoggedIn } = useAuth();
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
@@ -12,6 +14,12 @@ const MobileNavBar = () => {
 
   const handleCloseNav = () => {
     setNav(false);
+  };
+
+  const handleLogout = () => {
+    setNav(false);
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -56,11 +64,13 @@ const MobileNavBar = () => {
               About
             </Link>
           </li>
-          <li className="py-5 px-4 hover:bg-[#5b5b5b] rounded-sm">
-            <Link to="/signup" onClick={handleCloseNav}>
-              Sign Up
-            </Link>
-          </li>
+          {!isLoggedIn ? (
+            <li className="py-5 px-4 hover:bg-[#5b5b5b] rounded-sm">
+              <Link to="/signup" onClick={handleCloseNav}>
+                Sign Up
+              </Link>
+            </li>
+          ) : null}
           <li className="py-5 px-4 hover:bg-[#5b5b5b] rounded-sm">
             <Link to="/wishlist" onClick={handleCloseNav}>
               Wishlist
@@ -73,9 +83,14 @@ const MobileNavBar = () => {
           </li>
           <li className="py-5 px-4 hover:bg-[#5b5b5b] rounded-sm">
             <Link to="/account" onClick={handleCloseNav}>
-              Profile
+              Account
             </Link>
           </li>
+          {isLoggedIn ? (
+            <li className="py-5 px-4 hover:bg-[#5b5b5b] rounded-sm">
+              <Link onClick={handleLogout}>Log Out</Link>
+            </li>
+          ) : null}
         </ul>
       </div>
     </nav>

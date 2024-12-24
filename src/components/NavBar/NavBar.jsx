@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../Auth/AuthContext";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { FiShoppingCart, FiHeart, FiUser, FiShoppingBag } from "react-icons/fi";
 
 const NavBar = () => {
+  const { logout, isLoggedIn } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -25,6 +27,12 @@ const NavBar = () => {
 
   const handleLinkClick = () => {
     setIsDropdownOpen(false);
+  };
+
+  const handleLogout = () => {
+    setIsDropdownOpen(false);
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -58,14 +66,16 @@ const NavBar = () => {
             About
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/signup"
-            className={({ isActive }) => (isActive ? "underline" : "")}
-          >
-            Sign Up
-          </NavLink>
-        </li>
+        {!isLoggedIn && (
+          <li>
+            <NavLink
+              to="/signup"
+              className={({ isActive }) => (isActive ? "underline" : "")}
+            >
+              Sign Up
+            </NavLink>
+          </li>
+        )}
         <div className="grid grid-cols-3 gap-5 relative">
           <li>
             <NavLink
@@ -121,9 +131,8 @@ const NavBar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/logout"
                     className="block px-4 py-2 hover:bg-[#909090]"
-                    onClick={handleLinkClick}
+                    onClick={handleLogout}
                   >
                     <span className="flex items-center gap-1">
                       <FaArrowRightToBracket /> Logout
