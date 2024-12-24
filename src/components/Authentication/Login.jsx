@@ -7,7 +7,7 @@ const Login = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const onSubmit = (data) => {
-    fetch("http://localhost:3000/api/signin", {
+    fetch("https://fakestoreapi.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -21,7 +21,7 @@ const Login = () => {
       .then((data) => {
         console.log("Success:", data);
         localStorage.setItem("token", data.token);
-        navigate("/profile", { replace: true });
+        navigate("/account", { replace: true });
       })
       .catch((error) => {
         alert(error);
@@ -32,26 +32,23 @@ const Login = () => {
       <img src={image} alt="sign up image" className="md:mt-10" />
       <div className="mx-auto">
         <h1 className="md:mt-28 font-headingsFont text-xl">
-          Log in to Ecommerce
+          Log in to E-commerce
         </h1>
         <p>Enter your details below</p>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <input
-            type="email"
-            placeholder="Email"
-            {...register("email", {
+            type="text"
+            placeholder="Username or Email"
+            name="username"
+            {...register("username", {
               required: {
                 value: true,
-                message: "Email is required",
-              },
-              pattern: {
-                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                message: "Invalid email format",
+                message: "username or email is required",
               },
             })}
             className="outline-none border-black border-b-[1px] block py-3 w-full"
           />
-          <p className="text-[#cc3d3d]">{errors.email?.message}</p>
+          <p className="text-[#cc3d3d]">{errors.username?.message}</p>
           <input
             type="password"
             placeholder="Password"
@@ -59,10 +56,6 @@ const Login = () => {
               required: {
                 value: true,
                 message: "Password is required",
-              },
-              pattern: {
-                value: /^[a-zA-Z0-9]{6,}$/,
-                message: "Invalid password format",
               },
             })}
             className="outline-none border-black border-b-[1px] block py-3 w-full"
