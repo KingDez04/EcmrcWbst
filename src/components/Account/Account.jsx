@@ -53,8 +53,8 @@ const Account = () => {
           Welcome! <span className="text-[#DB4444]">{userWelcome}</span>
         </div>
       </div>
-      <div className="grid grid-flow-col ml-16 mr-5">
-        <div className="flex flex-col gap-3 text-[#0000006c]">
+      <div className="grid md:grid-flow-col ml-16 mr-16 md:mr-5">
+        <div className="flex flex-col gap-1 md:gap-3 text-[#0000006c]">
           <div>
             <p className="font-headingsFont text-black">Manage My Account</p>
             <div className="flex flex-col pl-7">
@@ -83,7 +83,7 @@ const Account = () => {
             </div>
           </div>
         </div>
-        <div className="mt-24 p-10 shadow-md">
+        <div className="mt-10 md:mt-24 p-5 md:p-10 shadow-md">
           <p className="font-headingsFont text-[#DB4444] text-lg">
             View Your Profile
           </p>
