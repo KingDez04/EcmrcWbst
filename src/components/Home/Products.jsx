@@ -1,8 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FaHeart, FaGripVertical } from "react-icons/fa";
+import { FaGripVertical } from "react-icons/fa";
+import { FiHeart } from "react-icons/fi";
 // import { useAuth } from "./Auths/Auth";
 
-const Products = ({ products, title = null, banner = null, ovrviewData = null }) => {
+const Products = ({
+  products,
+  title = null,
+  banner = null,
+  ovrviewData = null,
+}) => {
   const navigate = useNavigate();
   //   const { addToWishlist } = useAuth();
   return (
@@ -47,7 +53,7 @@ const Products = ({ products, title = null, banner = null, ovrviewData = null })
                   navigate("/wishlist");
                 }}
               >
-                <FaHeart />
+                <FiHeart />
               </button>
             </div>
           </div>

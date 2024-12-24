@@ -1,5 +1,5 @@
 // import { useAuth } from "../Auths/Auth";
-import { FaTrash } from "react-icons/fa";
+import { FiTrash } from "react-icons/fi";
 import image1 from "../../assets/images/aboutImage.png";
 import image2 from "../../assets/images/authImage.png"
 const wishlist = [
@@ -63,7 +63,7 @@ const Wishlist = () => {
                   //     removeFromWishlist(product);
                   //   }}
                 >
-                  <FaTrash />
+                  <FiTrash />
                 </button>
               </div>
             </div>

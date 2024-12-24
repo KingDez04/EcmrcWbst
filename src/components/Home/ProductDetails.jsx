@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { FaHeart, FaTruck, FaRecycle } from "react-icons/fa";
+import { FiHeart, FiTruck, FiRepeat } from "react-icons/fi";
 // import { useAuth } from "../Auths/Auth";
 import useFetch from "./useFetch";
 
@@ -93,19 +93,19 @@ const ProductDetails = () => {
                     navigate("/favourite");
                   }}
                 >
-                  <FaHeart />
+                  <FiHeart />
                 </button>
               </div>
               <div className="flex flex-col gap-0 text-xs">
                 <div className="border-[1px] border-black py-1 px-2 flex gap-10">
-                  <FaTruck />
+                  <FiTruck />
                   <p>
                     Free Delivery <br />
                     Enter your postal code for Delivery Availability.
                   </p>
                 </div>
                 <div className="border-[1px] border-black py-1 px-2 flex gap-10">
-                  <FaRecycle />
+                  <FiRepeat />
                   <p>
                     Return Delivery <br />
                     Free 30 Days Delivery Returns.

@@ -1,12 +1,12 @@
 import {
-  FaStore,
-  FaDollarSign,
-  FaMoneyBillWave,
-  FaGift,
-  FaTruck,
-  FaHeadphones,
-  FaLock,
-} from "react-icons/fa";
+  FiShoppingBag,
+  FiDollarSign,
+  FiGift,
+  FiTruck,
+  FiHeadphones,
+  FiLock,
+} from "react-icons/fi";
+import { CiMoneyBill } from "react-icons/ci";
 import image from "../../assets/images/aboutImage.png";
 
 const About = () => {
@@ -39,22 +39,22 @@ const About = () => {
         </div>
         <div className="flex justify-center gap-5">
           <div className="hover:bg-[#DB4444] hover:text-white p-2 md:min-w-32 md:max-w-32 border-gray-400 border-[1px] text-center">
-            <FaStore />
+            <FiShoppingBag />
             <p className="font-bold">10.5k</p>
             <p className="text-xs">Active Sellers</p>
           </div>
           <div className="hover:bg-[#DB4444] hover:text-white p-2 md:min-w-32 md:max-w-32 border-gray-400 border-[1px] text-center">
-            <FaDollarSign />
+            <FiDollarSign />
             <p className="font-bold">33k</p>
             <p className="text-xs">Monthly Product Sales</p>
           </div>
           <div className="hover:bg-[#DB4444] hover:text-white p-2 md:min-w-32 md:max-w-32 border-gray-400 border-[1px] text-center">
-            <FaGift />
+            <FiGift />
             <p className="font-bold">45.5k</p>
             <p className="text-xs">Active Customers</p>
           </div>
           <div className="hover:bg-[#DB4444] hover:text-white p-2 md:min-w-32 md:max-w-32 border-gray-400 border-[1px] text-center">
-            <FaMoneyBillWave />
+            <CiMoneyBill />
             <p className="font-bold">25k</p>
             <p className="text-xs">Annual gross sales</p>
           </div>
@@ -62,21 +62,21 @@ const About = () => {
         <div className="flex justify-center gap-10">
           <div className="text-center">
             <div className="flex justify-center">
-              <FaTruck />
+              <FiTruck />
             </div>
             <p className="font-bold">FREE AND FAST DELIVERY</p>
             <p className="text-xs">Free delivery for all orders over #1000</p>
           </div>
           <div className="text-center">
             <div className="flex justify-center">
-              <FaHeadphones />
+              <FiHeadphones />
             </div>
             <p className="font-bold">24/7 CUSTOMER SERVICE</p>
             <p className="text-xs">Friendly 24/7 customer support</p>
           </div>
           <div className="text-center">
             <div className="flex justify-center">
-              <FaLock />
+              <FiLock />
             </div>
             <p className="font-bold">MONEY BACK GUARANTEE</p>
             <p className="text-xs">We return money within 30 days</p>
