@@ -1,55 +1,21 @@
-// import { useAuth } from "../Auths/Auth";
+import { useAuth } from "../Auth/AuthContext";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import image1 from "../../assets/images/aboutImage.png";
-import image2 from "../../assets/images/authImage.png";
-import image3 from "../../assets/images/banner1.png";
-import image4 from "../../assets/images/banner2.png";
-const checkout = [
-  {
-    id: 1,
-    image: image1,
-    title: "a",
-    price: "s",
-  },
-  {
-    id: 2,
-    image: image2,
-    title: "a",
-    price: "s",
-  },
-  {
-    id: 3,
-    image: image1,
-    title: "a",
-    price: "s",
-  },
-  {
-    id: 4,
-    image: image3,
-    title: "a",
-    price: "s",
-  },
-  {
-    id: 5,
-    image: image4,
-    title: "a",
-    price: "s",
-  },
-];
+import { useState } from "react";
+import { FiDelete } from "react-icons/fi";
 
 const Checkout = () => {
-  //   const { checkout } = useAuth();
+  const { cart, removeFromCart } = useAuth();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(cart);
 
   const onSubmit = (data) => {
     let total = 0;
-    checkout.map((item) => {
+    cartItems.forEach((item) => {
       total += item.price * (item.quantity || 1);
     });
     data["amount"] = total;
+
     fetch("http://localhost:3000/api/paystack/pay", {
       method: "POST",
       headers: {
@@ -74,6 +40,17 @@ const Checkout = () => {
         alert(error);
       });
   };
+
+  const handleRemoveFromCart = (itemId) => {
+    removeFromCart(itemId);
+    setCartItems(cartItems.filter((item) => item.id !== itemId));
+  };
+
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * (item.quantity || 1),
+    0
+  );
+
   return (
     <>
       <div className="my-[50px] ml-16">
@@ -91,7 +68,7 @@ const Checkout = () => {
               <input
                 type="text"
                 id="fName"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("fName", {
                   required: { value: true, message: "First Name is required" },
                 })}
@@ -103,7 +80,7 @@ const Checkout = () => {
               <input
                 type="text"
                 id="cName"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("cName")}
               />
             </div>
@@ -112,7 +89,7 @@ const Checkout = () => {
               <input
                 type="text"
                 id="address"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("address", {
                   required: {
                     value: true,
@@ -129,7 +106,7 @@ const Checkout = () => {
               <input
                 type="text"
                 id="apartment"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("apartment")}
               />
             </div>
@@ -138,7 +115,7 @@ const Checkout = () => {
               <input
                 type="text"
                 id="city"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("city", {
                   required: { value: true, message: "Town/City is required" },
                 })}
@@ -150,7 +127,7 @@ const Checkout = () => {
               <input
                 type="tel"
                 id="num"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("number", {
                   required: {
                     value: true,
@@ -169,7 +146,7 @@ const Checkout = () => {
               <input
                 type="email"
                 id="email"
-                className="bg-[#00000010] p-2"
+                className="bg-[#00000010] p-2 text-black outline-none"
                 {...register("email", {
                   required: { value: true, message: "Email is required" },
                   pattern: {
@@ -187,8 +164,8 @@ const Checkout = () => {
         </div>
         <div>
           <p className="font-headingsFont text-2xl mb-5">Order Summary</p>
-          <p>You have {checkout.length} item(s) in your shopping cart.</p>
-          {checkout.length > 0 ? (
+          <p>You have {cartItems.length} item(s) in your shopping cart.</p>
+          {cartItems.length > 0 ? (
             <div className="flex flex-col gap-5">
               <p>Your Cart Items</p>
               <div className="shadow-md text-center grid grid-cols-4 p-3">
@@ -197,7 +174,7 @@ const Checkout = () => {
                 <p>Quantity</p>
                 <p>Subtotal</p>
               </div>
-              {checkout.map((item, index) => (
+              {cartItems.map((item, index) => (
                 <div
                   key={index}
                   className="shadow-md text-center grid grid-cols-4 p-3 relative"
@@ -215,8 +192,18 @@ const Checkout = () => {
                   <p>${item.price}</p>
                   <p>{item.quantity || 1}</p>
                   <p>{String(item.price * (item.quantity || 1))}</p>
+                  <button
+                    onClick={() => handleRemoveFromCart(item.id)}
+                    className="absolute top-2 left-2 text-[#DB4444] hover:text-red-700"
+                  >
+                    <FiDelete />
+                  </button>
                 </div>
               ))}
+              <div className="shadow-md text-center flex justify-evenly p-3">
+                <p>Total:</p>
+                <p>${totalPrice}</p>
+              </div>
             </div>
           ) : (
             <p className="shadow-md p-3 text-center">No items in your cart.</p>
@@ -226,4 +213,5 @@ const Checkout = () => {
     </>
   );
 };
+
 export default Checkout;
