@@ -14,30 +14,41 @@ const Checkout = () => {
     cartItems.forEach((item) => {
       total += item.price * (item.quantity || 1);
     });
-    data["amount"] = total;
+
+    const requestData = {
+      ...data,
+      amount: total,
+    };
 
     fetch("http://localhost:3000/api/paystack/pay", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(requestData),
     })
-      .then((response) => {
+      .then(async (response) => {
         if (!response.ok) {
-          console.log(response.json());
-          throw Error("An error occurred");
+          const error = await response.json();
+          console.error("API Error:", error);
+          throw new Error(error.message || "An error occurred");
         }
-        setCartItems((prevItems) => prevItems.filter((item) => item.id === -1));
         return response.json();
       })
-      .then((data) => {
-        window.location.href = data.authorization_url;
-        console.log("Navigation attempted");
+      .then((responseData) => {
+        if (responseData.authorization_url) {
+          window.location.href = responseData.authorization_url;
+          console.log("Redirecting to Paystack...");
+        } else {
+          throw new Error("Authorization URL missing in response");
+        }
+
+        setCartItems([]);
       })
       .catch((error) => {
-        alert(error);
+        console.error("Error occurred:", error);
+        alert(error.message || "Something went wrong. Please try again.");
       });
   };
 
@@ -194,7 +205,7 @@ const Checkout = () => {
                   <p>{String(item.price * (item.quantity || 1))}</p>
                   <button
                     onClick={() => handleRemoveFromCart(item.id)}
-                    className="absolute top-2 left-2 text-[#DB4444] hover:text-red-700"
+                    className="absolute top-2 right-2 text-[#DB4444] hover:text-red-700"
                   >
                     <FiDelete />
                   </button>
