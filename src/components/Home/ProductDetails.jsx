@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { FiHeart, FiTruck, FiRepeat } from "react-icons/fi";
+import { FaGripVertical } from "react-icons/fa";
 // import { useAuth } from "../Auths/Auth";
 import useFetch from "./useFetch";
 
@@ -11,6 +12,12 @@ const ProductDetails = () => {
     error,
     isPending,
   } = useFetch("https://fakestoreapi.com/products/" + product);
+  const { data: allProducts } = useFetch("https://fakestoreapi.com/products/");
+  const relatedProducts =
+    allProducts?.filter(
+      (item) => item.category === products?.category && item.id !== products?.id
+    ) || [];
+
   const navigate = useNavigate();
 
   const addToCart = () => {
@@ -119,6 +126,42 @@ const ProductDetails = () => {
             </div>
           </div>
         )}
+        <div className="ml-16 mb-5 mt-14 font-headingsFont">
+          <span className="text-[#DB4444] flex items-center gap-1">
+            <FaGripVertical className="text-2xl" /> Related Item
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-10 mx-16">
+          {relatedProducts.slice(0, 4).map((relatedProduct) => (
+            <div className="relative" key={relatedProduct.id}>
+              <div className="object-scale-down flex justify-center bg-[#F5F5F5]">
+                <img
+                  className="max-h-20 min-h-20 md:max-h-32 md:min-h-32"
+                  src={relatedProduct.image}
+                  alt={relatedProduct.title}
+                />
+              </div>
+              <button className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]">
+                Add To Cart
+              </button>
+              <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">
+                {relatedProduct.title}
+              </p>
+              <div>
+                <p className="text-[#DB4444]">${relatedProduct.price}</p>
+                <button
+                  className="absolute top-2 right-2 hover:text-[#DB4444]"
+                  onClick={() => {
+                    //   addToWishlist(product);
+                    navigate("/wishlist");
+                  }}
+                >
+                  <FiHeart />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
