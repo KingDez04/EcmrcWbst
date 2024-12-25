@@ -1,12 +1,12 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FiHeart, FiTruck, FiRepeat } from "react-icons/fi";
 import { FaGripVertical } from "react-icons/fa";
-// import { useAuth } from "../Auths/Auth";
+import { useAuth } from "../Auth/AuthContext";
 import useFetch from "./useFetch";
 
 const ProductDetails = () => {
   const { product } = useParams();
-  //   const { addToCheckout, addToWishlist } = useAuth();
+  const { addToWishlist, addToCart } = useAuth();
   const {
     data: products,
     error,
@@ -17,45 +17,6 @@ const ProductDetails = () => {
     allProducts?.filter(
       (item) => item.category === products?.category && item.id !== products?.id
     ) || [];
-
-  const navigate = useNavigate();
-
-  const addToCart = () => {
-    const token = localStorage.getItem("token");
-    const cartItem = {
-      productId: products.id,
-      productName: products.title,
-      price: products.price,
-      quantity: 1,
-    };
-    fetch("http://localhost:3000/api/cart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token}`,
-      },
-      body: JSON.stringify(cartItem),
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(text);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        alert(data.message);
-        // addToCheckout(
-        //   <>
-        //     {products.title} : ${products.price}
-        //   </>
-        // );
-        navigate("/cart");
-      })
-      .catch((error) => {
-        alert("Error: " + error.message);
-      });
-  };
 
   return (
     <>
@@ -92,7 +53,9 @@ const ProductDetails = () => {
               <hr className="border-black" />
               <div className="flex justify-between">
                 <button
-                  onClick={addToCart}
+                  onClick={() => {
+                    addToCart(products);
+                  }}
                   className="p-1 md:p-2 border-0 bg-[#DB4444] text-white rounded-md hover:bg-red-700"
                 >
                   Buy Now
@@ -100,8 +63,7 @@ const ProductDetails = () => {
                 <button
                   className="hover:text-[#DB4444]"
                   onClick={() => {
-                    // addToWishlist(products);
-                    navigate("/wishlist");
+                    addToWishlist(products);
                   }}
                 >
                   <FiHeart />
@@ -126,11 +88,13 @@ const ProductDetails = () => {
             </div>
           </div>
         )}
-        <div className="ml-16 mb-5 mt-14 font-headingsFont">
-          <span className="text-[#DB4444] flex items-center gap-1">
-            <FaGripVertical className="text-2xl" /> Related Item
-          </span>
-        </div>
+        {relatedProducts.length > 0 && (
+          <div className="ml-16 mb-5 mt-14 font-headingsFont">
+            <span className="text-[#DB4444] flex items-center gap-1">
+              <FaGripVertical className="text-2xl" /> Related Item
+            </span>
+          </div>
+        )}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-10 mx-16">
           {relatedProducts.slice(0, 4).map((relatedProduct) => (
             <div className="relative" key={relatedProduct.id}>
@@ -141,7 +105,12 @@ const ProductDetails = () => {
                   alt={relatedProduct.title}
                 />
               </div>
-              <button className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]">
+              <button
+                className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]"
+                onClick={() => {
+                  addToCart(relatedProduct);
+                }}
+              >
                 Add To Cart
               </button>
               <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">
@@ -152,8 +121,7 @@ const ProductDetails = () => {
                 <button
                   className="absolute top-2 right-2 hover:text-[#DB4444]"
                   onClick={() => {
-                    //   addToWishlist(product);
-                    navigate("/wishlist");
+                    addToWishlist(relatedProduct);
                   }}
                 >
                   <FiHeart />

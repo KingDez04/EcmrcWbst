@@ -2,7 +2,7 @@ import { useAuth } from "../Auth/AuthContext";
 import { FiTrash } from "react-icons/fi";
 
 const Wishlist = () => {
-  const { wishlist, removeFromWishlist } = useAuth();
+  const { wishlist, removeFromWishlist, addToCart } = useAuth();
   return (
     <>
       <div className="my-[50px] ml-16">Wishlist ({wishlist.length})</div>
@@ -17,7 +17,12 @@ const Wishlist = () => {
                   alt={`Image ${i + 1}`}
                 />
               </div>
-              <button className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]">
+              <button
+                className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]"
+                onClick={() => {
+                  addToCart(product);
+                }}
+              >
                 Add To Cart
               </button>
               <p className="font-bold overflow-hidden max-h-5 overflow-ellipsis">

@@ -9,7 +9,7 @@ const Products = ({
   banner = null,
   ovrviewData = null,
 }) => {
-  const { addToWishlist } = useAuth();
+  const { addToWishlist, addToCart } = useAuth();
   return (
     <>
       <div className="flex justify-start object-scale-down mt-10">
@@ -37,7 +37,12 @@ const Products = ({
                 />
               </div>
             </Link>
-            <button className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]">
+            <button
+              className="w-full text-xs py-1 bg-black text-white hover:bg-[#DB4444]"
+              onClick={() => {
+                addToCart(product);
+              }}
+            >
               Add To Cart
             </button>
             <p className="font-bold overflow-hidden max-h-6 overflow-ellipsis">
