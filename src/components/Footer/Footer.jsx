@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa";
+import { useAuth } from "../Auth/AuthContext";
 
 const Footer = () => {
+  const { logout, isLoggedIn } = useAuth();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
@@ -86,15 +88,17 @@ const Footer = () => {
           <Link to="/account" className="hover:text-[#c0c0c0]">
             My Account
           </Link>
-          <p>
-            <Link to="/login" className="hover:text-[#c0c0c0]">
-              Login
-            </Link>{" "}
-            /{" "}
-            <Link to="/signup" className="hover:text-[#c0c0c0]">
-              Register
-            </Link>
-          </p>
+          {!isLoggedIn && (
+            <span>
+              <Link to="/login" className="hover:text-[#c0c0c0]">
+                Login
+              </Link>{" "}
+              /{" "}
+              <Link to="/signup" className="hover:text-[#c0c0c0]">
+                Register
+              </Link>
+            </span>
+          )}
           <Link to="/cart" className="hover:text-[#c0c0c0]">
             Cart
           </Link>
