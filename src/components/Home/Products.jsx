@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaGripVertical } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
-// import { useAuth } from "./Auths/Auth";
+import { useAuth } from "../Auth/AuthContext";
 
 const Products = ({
   products,
@@ -9,8 +9,7 @@ const Products = ({
   banner = null,
   ovrviewData = null,
 }) => {
-  const navigate = useNavigate();
-  //   const { addToWishlist } = useAuth();
+  const { addToWishlist } = useAuth();
   return (
     <>
       <div className="flex justify-start object-scale-down mt-10">
@@ -49,8 +48,7 @@ const Products = ({
               <button
                 className="absolute top-2 right-2 hover:text-[#DB4444]"
                 onClick={() => {
-                  //   addToWishlist(product);
-                  navigate("/wishlist");
+                  addToWishlist(product);
                 }}
               >
                 <FiHeart />
