@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -41,13 +42,19 @@ export const AuthProvider = ({ children }) => {
         if (!productExists) {
           const updatedWishlist = [...prevWishlist, product];
           localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-          alert("Item added to wishlist");
+          toast("Item added to wishlist", {
+            position: "top-center",
+            type: "success",
+          });
           return updatedWishlist;
         }
         return prevWishlist;
       });
     } else {
-      alert("Unauthorized access. Please log in to add items to the wishlist.");
+      toast(
+        "Unauthorized access. Please log in to add items to the wishlist.",
+        { position: "top-center", type: "error" }
+      );
     }
   };
 
@@ -57,7 +64,10 @@ export const AuthProvider = ({ children }) => {
         (product) => product.id !== productId
       );
       localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-      alert("Item removed from wishlist");
+      toast("Item removed from wishlist", {
+        position: "top-center",
+        type: "info",
+      });
       return updatedWishlist;
     });
   };
@@ -69,13 +79,19 @@ export const AuthProvider = ({ children }) => {
         if (!productExists) {
           const updatedCart = [...prevCart, product];
           localStorage.setItem("cart", JSON.stringify(updatedCart));
-          alert("Item added to cart");
+          toast("Item added to cart", {
+            position: "top-center",
+            type: "success",
+          });
           return updatedCart;
         }
         return prevCart;
       });
     } else {
-      alert("Unauthorized access. Please log in to add items to the cart.");
+      toast("Unauthorized access. Please log in to add items to the cart.", {
+        position: "top-center",
+        type: "error",
+      });
     }
   };
 
@@ -85,7 +101,10 @@ export const AuthProvider = ({ children }) => {
         (product) => product.id !== productId
       );
       localStorage.setItem("cart", JSON.stringify(updatedCart));
-      alert("Item removed from cart");
+      toast("Item removed from cart", {
+        position: "top-center",
+        type: "info",
+      });
       return updatedCart;
     });
   };

@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const { register, handleSubmit, formState } = useForm();
@@ -20,10 +21,15 @@ const Contact = () => {
       .then((data) => {
         console.log("Success:", data);
         localStorage.setItem("token", data.token);
+        toast("Successful", { position: "top-center", type: "success" });
         navigate("/contact", { replace: true });
       })
       .catch((error) => {
-        alert(error);
+        console.error("Error:", error.message);
+        toast("Something went wrong. Please try again.", {
+          position: "top-center",
+          type: "error",
+        });
       });
   };
   return (

@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/AuthContext";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { FiShoppingCart, FiHeart, FiUser, FiShoppingBag } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const { logout, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -31,8 +33,14 @@ const NavBar = () => {
 
   const handleLogout = () => {
     setIsDropdownOpen(false);
-    logout();
-    navigate("/login");
+    if (isLoggedIn) {
+      toast("Logged out successfully", {
+        position: "top-center",
+        type: "success",
+      });
+      logout();
+      navigate("/login");
+    }
   };
 
   return (

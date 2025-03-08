@@ -2,6 +2,7 @@ import { useAuth } from "../Auth/AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FiDelete } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
   const { cart, removeFromCart } = useAuth();
@@ -40,6 +41,10 @@ const Checkout = () => {
         if (responseData.authorization_url) {
           window.location.href = responseData.authorization_url;
           console.log("Redirecting to Paystack...");
+          toast("Redirecting to Paystack...", {
+            position: "top-center",
+            type: "info",
+          });
         } else {
           throw new Error("Authorization URL missing in response");
         }
@@ -47,8 +52,11 @@ const Checkout = () => {
         setCartItems([]);
       })
       .catch((error) => {
-        console.error("Error occurred:", error);
-        alert(error.message || "Something went wrong. Please try again.");
+        console.error("Error occurred:", error.message);
+        toast(`Something went wrong. Please try again.`, {
+          position: "top-center",
+          type: "error",
+        });
       });
   };
 

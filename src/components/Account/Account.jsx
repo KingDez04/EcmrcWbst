@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../Auth/AuthContext";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Account = () => {
   const { logout } = useAuth();
@@ -39,6 +40,10 @@ const Account = () => {
   }, [setValue]);
 
   const handleLogout = () => {
+    toast("Logged out successfully", {
+      position: "top-center",
+      type: "success",
+    });
     logout();
     navigate("/login");
   };

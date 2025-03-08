@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa";
 import { useAuth } from "../Auth/AuthContext";
+import { toast } from "react-toastify";
 
 const Footer = () => {
   const { logout, isLoggedIn } = useAuth();
@@ -23,10 +24,15 @@ const Footer = () => {
       .then((data) => {
         console.log("Success:", data);
         localStorage.setItem("token", data.token);
+        toast("Successful", { position: "top-center", type: "success" });
         navigate("/contact", { replace: true });
       })
       .catch((error) => {
-        alert(error);
+        console.error("Error:", error.message);
+        toast("Something went wrong. Please try again.", {
+          position: "top-center",
+          type: "error",
+        });
       });
   };
   return (

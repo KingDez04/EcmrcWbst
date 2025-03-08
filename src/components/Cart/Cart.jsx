@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/AuthContext";
 import { FiDelete } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const { cart, removeFromCart } = useAuth();
@@ -11,7 +12,7 @@ const Cart = () => {
       // addToCheckout(cartItems);
       navigate("/checkout");
     } else {
-      alert("Unauthorized access");
+      toast("Unauthorized access", { position: "top-center", type: "error" });
       navigate("/login");
     }
   };

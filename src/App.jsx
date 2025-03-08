@@ -16,11 +16,14 @@ import Checkout from "./components/Checkout/Checkout";
 import Account from "./components/Account/Account";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { AuthProvider } from "./components/Auth/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <ToastContainer />
         <Header />
         <NavBar />
         <MobileNavBar />

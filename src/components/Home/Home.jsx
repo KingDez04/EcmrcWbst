@@ -15,8 +15,8 @@ const Home = () => {
     <>
       <div>
         {isPending && (
-          <div className="font-headingsFont p-3 mt-20 text-5xl text-center">
-            Loading...
+          <div className="flex items-center justify-center mt-10">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2"></div>
           </div>
         )}
         {error && (

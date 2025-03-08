@@ -2,10 +2,12 @@ import { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAuth } from "../Auth/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MobileNavBar = () => {
   const { logout, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
@@ -17,6 +19,10 @@ const MobileNavBar = () => {
   };
 
   const handleLogout = () => {
+    toast("Logged out successfully", {
+      position: "top-center",
+      type: "success",
+    });
     setNav(false);
     logout();
     navigate("/login");

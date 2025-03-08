@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../Auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import image from "../../assets/images/authImage.png";
 
 const Login = () => {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();
-  const [errorMessage, setErrorMessage] = useState("");
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
@@ -39,11 +39,16 @@ const Login = () => {
       .then((data) => {
         console.log("Success:", data);
         localStorage.setItem("token", data.token);
+        toast("Login Successful", { position: "top-center", type: "success" });
         setIsLoggedIn(true);
         navigate("/account", { replace: true });
       })
       .catch((error) => {
-        setErrorMessage(error.message);
+        console.log("Error:", error.message);
+        toast(`An error occurred during login`, {
+          position: "top-center",
+          type: "error",
+        });
       });
   };
   return (
@@ -55,7 +60,6 @@ const Login = () => {
         </h1>
         <p>Enter your details below</p>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          {errorMessage && <p className="text-red-600">{errorMessage}</p>}
           <input
             type="text"
             placeholder="Username or Email"

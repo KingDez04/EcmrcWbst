@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import image from "../../assets/images/authImage.png";
 
 const Signup = () => {
@@ -19,10 +20,17 @@ const Signup = () => {
           localStorage.setItem("token", data.token);
           navigate("/login", { replace: true });
         }
-        alert(data.message);
+        toast(`${data.message}`, {
+          position: "top-center",
+          type: "success",
+        });
       })
       .catch((error) => {
-        alert(error.message);
+        console.error("Error:", error.message);
+        toast("An error occurred during signup", {
+          position: "top-center",
+          type: "error",
+        });
       });
   };
   return (
